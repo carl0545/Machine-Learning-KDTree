@@ -12,11 +12,16 @@
 using namespace std;
 
 int main(){
+  ////////MAIN DECLARATIONS//////
   char **label; //contains labels of read matrix
-  Matrix read; //read Matrix
+  Matrix labeledMatrix; //read Matrix
+  Matrix unlabeledMatrix; //unlabeled Matrix
 
-  label = read.readLabeledRow();
 
+
+  ///////MATRIX INPUT FROM STDIN////////
+  label = labeledMatrix.readLabeledRow();
+  unlabeledMatrix.read();
 
 
 }
