@@ -6,11 +6,17 @@
 */
 
 #include "mat.h"
+#include <iostream>
 
 
 using namespace std;
 
 int main(){
+  char **label; //contains labels of read matrix
+  Matrix read; //read Matrix
+
+  label = read.readLabeledRow();
+
 
 
 }
