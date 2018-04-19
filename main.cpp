@@ -9,7 +9,13 @@
 #include <iostream>
 
 void buildKDTree(Matrix*, int, int, int); //Turns the labeled matrix into a KDTree (in a matrix format)
-
+void nearestAux(Matrix &tree,   // the kdtree matrix
+                Matrix &item,   // the row
+                int rowstart,   // beginning row of region to search (subtree)
+                int rowend,     // ending row of region to search
+                int c,          // column or feature to compare
+                double &best,   // the distance to nearest point found so far
+                int &bestex);   // the row of the nearest point found so far
 
 using namespace std;
 
@@ -34,6 +40,7 @@ int main(){
 
 
 }
+
 /*
 * Turns the labeled matrix into a KDTree (in a matrix format)
 * Destroys original matrix
@@ -66,7 +73,22 @@ void buildKDTree(Matrix *data, int featureNum, int minR, int maxR){
     buildKDTree(data, featureNum, (maxR/2)+1, maxR);
   }
 
+}
 
+void nearestAux(Matrix &tree, Matrix &item, int rowstart, int rowend, int c, double &best, int &bestex) {
+  int range = rowend - rowstart;
+
+  if(range <= 2){
+
+  }
+
+  else if(range == 3){
+
+  }
+
+  else{
+    cout << "ERROR(nearest): Should never get here" << endl;
+  }
 
 
 
