@@ -65,12 +65,7 @@ void buildKDTree(Matrix *data, int featureNum, int minR, int maxR){
   if(range <= 1){
     return; //do nothing
   }
-/*
-  else if(range == 2){
-    data->sortRowsByCol(featureNum, minR, maxR);
-    return;
-  }
-*/
+
   else{
     int newMaxR = minR + range/2;
     buildKDTree(data, featureNum, minR, newMaxR-1); //left side
