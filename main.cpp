@@ -16,7 +16,7 @@ void nearestAux(Matrix &tree,   // the kdtree matrix
                 int c,          // column or feature to compare
                 double &best,   // the distance to nearest point found so far
                 int &bestex);   // the row of the nearest point found so far
-
+void labeledOutput(char**, Matrix); //Outputs the labeled matrix in assignment specs
 using namespace std;
 
 int main(){
@@ -30,13 +30,15 @@ int main(){
   ///////MATRIX INPUT FROM STDIN////////
   label = labeledMatrix.readLabeledRow();
   unlabeledMatrix.read();
-  labeledMatrix.print();
+  //labeledMatrix.print();
 
   ////BUILD KDTREE///
   Matrix kdTree = new Matrix(labeledMatrix);
   buildKDTree(&kdTree, 1, 0, labeledMatrix.numRows()-1);
 
-  kdTree.print();
+  //kdTree.print();
+
+  labeledOutput(label, kdTree);
 
 
 }
@@ -48,7 +50,7 @@ int main(){
 void buildKDTree(Matrix *data, int featureNum, int minR, int maxR){
   if(featureNum >= data->numCols()){
     cout << "FEATURES ARE OUT" << endl;
-    return;
+    featureNum = 1;
   }
 
   //Sort on specific feature
@@ -60,17 +62,19 @@ void buildKDTree(Matrix *data, int featureNum, int minR, int maxR){
   //Base Cases
   int range = maxR-minR;
 
-  if(range == 1){
+  if(range <= 1){
     return; //do nothing
   }
-
+/*
   else if(range == 2){
-    return; //do nothing
+    data->sortRowsByCol(featureNum, minR, maxR);
+    return;
   }
-
+*/
   else{
-    buildKDTree(data, featureNum, minR, maxR/2);
-    buildKDTree(data, featureNum, (maxR/2)+1, maxR);
+    int newMaxR = minR + range/2;
+    buildKDTree(data, featureNum, minR, newMaxR-1); //left side
+    buildKDTree(data, featureNum, newMaxR+1, maxR); //right side
   }
 
 }
@@ -91,5 +95,19 @@ void nearestAux(Matrix &tree, Matrix &item, int rowstart, int rowend, int c, dou
   }
 
 
+
+}
+
+void labeledOutput(char **label, Matrix output){
+
+  cout << "KDTree version of matrix(size of kd tree: " << output.numRows() << " X " << output.numCols() << ")" << endl;
+
+  for(int r = 0; r < output.numRows(); r++){
+    cout << label[(int)output.get(r,0)] << " ";
+    for(int c = 1; c < output.numCols(); c++){
+      cout << output.get(r,c) << " ";
+    }
+    cout << endl;
+  }
 
 }
